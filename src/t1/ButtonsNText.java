@@ -9,6 +9,7 @@ import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+@SuppressWarnings("serial")
 public class ButtonsNText extends JPanel {
 	
 	private JTextField TextLine;
@@ -117,7 +118,7 @@ public class ButtonsNText extends JPanel {
 		}
 	}
 	
-	private class CheckBoxAction implements ItemListener{
+	private class CheckBoxAction implements ItemListener {
 
 		public void itemStateChanged(ItemEvent e) {
 			if (((JCheckBox)e.getSource()).isSelected()) {

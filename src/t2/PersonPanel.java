@@ -14,28 +14,39 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import t3.PassivePersonPanel;
+
 import static java.awt.GridBagConstraints.*;
 
 @SuppressWarnings("serial")
 public class PersonPanel extends JPanel implements PropertyChangeListener {
 
-	Person model = null;
+	protected Person model = null;
 	
-	JLabel name;
-	JLabel dateOfBirth;
-	JLabel email;
-	JLabel gender;
-	JLabel height;
-	JTextField nameField;
-	JTextField dateOfBirthField;
-	JTextField emailField;
-	JComboBox<Gender> genderField;
-	JSlider heightField;
-	JButton testButton;
+	protected JLabel name;
+	protected JLabel dateOfBirth;
+	protected JLabel email;
+	protected JLabel gender;
+	protected JLabel height;
+	protected JTextField nameField;
+	protected JTextField dateOfBirthField;
+	protected JTextField emailField;
+	protected JComboBox<Gender> genderField;
+	protected JSlider heightField;
+	protected JButton testButton;
 	
 	public static void main(String[] args) {
-		JFrame mainFrame = new JFrame("T2");
-		mainFrame.setContentPane(new PersonPanel());
+		JFrame mainFrame = new JFrame("T2 + T3");
+		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		JPanel container = new JPanel();
+		container.setLayout(new BoxLayout(container, BoxLayout.X_AXIS));
+		PersonPanel editable = new PersonPanel();
+		editable.setModel(new Person());
+		container.add(editable);
+		PassivePersonPanel passive = new PassivePersonPanel();
+		passive.setModel(editable.getModel());
+		container.add(passive);
+		mainFrame.setContentPane(container);
         mainFrame.pack();
         mainFrame.setVisible(true);
 	}
@@ -137,7 +148,7 @@ public class PersonPanel extends JPanel implements PropertyChangeListener {
 		model.addPropertyChangeListener(this);
 	}
 	
-	private void updateFields() {
+	protected void updateFields() {
 		nameField.setText(model.getName());
 		emailField.setText(model.getEmail());
 		dateOfBirthField.setText(model.getDateOfBirth());
@@ -174,8 +185,7 @@ public class PersonPanel extends JPanel implements PropertyChangeListener {
 
 		public void keyReleased(KeyEvent e) {
 			if (model == null) {
-				//return;
-				model = new Person();
+				return;
 			}
 			if (e.getSource().equals(nameField)) {
 				model.setName(nameField.getText());
@@ -190,8 +200,7 @@ public class PersonPanel extends JPanel implements PropertyChangeListener {
 		
 		public void itemStateChanged(ItemEvent e) {
 			if (model == null) {
-				//return;
-				model = new Person();
+				return;
 			}
 			model.setGender((Gender)genderField.getSelectedItem());
 		}
@@ -199,8 +208,7 @@ public class PersonPanel extends JPanel implements PropertyChangeListener {
 		@Override
 		public void stateChanged(ChangeEvent e) {
 			if (model == null) {
-				//return;
-				model = new Person();
+				return;
 			}
 			model.setHeight(heightField.getValue());
 		}

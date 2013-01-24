@@ -40,6 +40,7 @@ public class ButtonsNText extends JPanel {
 		add(TextLine);
 		TextLine.setColumns(10);
 		TextLine.addKeyListener(new TextFieldAction());
+		TextLine.addActionListener(new TextFieldAction());
 		
 		toggleGroup = new ButtonGroup();
 		JToggleButton UpperCaseButton = new JToggleButton("Upper case");
@@ -61,25 +62,12 @@ public class ButtonsNText extends JPanel {
 
 	}
 	
-	class TextFieldAction implements KeyListener {
+	class TextFieldAction implements KeyListener, ActionListener {
 
-		@Override
 		public void keyTyped(KeyEvent e) {
-			
-			
 		}
 
-		@Override
 		public void keyPressed(KeyEvent e) {
-			if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-				if (textCase == Upper) {
-					TextLine.setText(TextLine.getText().toUpperCase());
-				}
-				else if (textCase == Lower) {
-					TextLine.setText(TextLine.getText().toLowerCase());
-				}
-			}
-			
 		}
 
 		@Override
@@ -95,6 +83,16 @@ public class ButtonsNText extends JPanel {
 					TextLine.setText(TextLine.getText().toLowerCase());
 					TextLine.setCaretPosition(p);
 				}
+			}
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (textCase == Upper) {
+				TextLine.setText(TextLine.getText().toUpperCase());
+			}
+			else if (textCase == Lower) {
+				TextLine.setText(TextLine.getText().toLowerCase());
 			}
 		}
 

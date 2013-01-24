@@ -3,6 +3,7 @@ package t2;
 import javax.swing.*;
 import java.awt.*;
 
+@SuppressWarnings("serial")
 public class Test extends JPanel {
 
     public Test()

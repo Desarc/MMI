@@ -21,7 +21,7 @@ public class PassivePersonPanel extends PersonPanel {
 		textGenderField = new JTextField();
 		textHeightField = new JTextField();
 		
-		remove(testButton);
+		remove(newButton);
 		remove(genderField);
 		remove(heightField);
 		

@@ -9,12 +9,15 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Iterator;
+import java.util.Vector;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import t3.PassivePersonPanel;
+import t4.PersonPanelListener;
 
 import static java.awt.GridBagConstraints.*;
 
@@ -33,7 +36,10 @@ public class PersonPanel extends JPanel implements PropertyChangeListener {
 	protected JTextField emailField;
 	protected JComboBox<Gender> genderField;
 	protected JSlider heightField;
-	protected JButton testButton;
+	protected JButton newButton;
+	protected JButton deleteButton;
+	
+	private Vector<PersonPanelListener> personPanelListeners;
 	
 	public static void main(String[] args) {
 		JFrame mainFrame = new JFrame("T2 + T3");
@@ -57,7 +63,8 @@ public class PersonPanel extends JPanel implements PropertyChangeListener {
 		email = new JLabel("Email:");
 		gender = new JLabel("Gender:");
 		height = new JLabel("Height:");
-		testButton = new JButton("TEST");
+		newButton = new JButton("New");
+		deleteButton = new JButton("Delete");
 		
 		nameField = new JTextField();
 		dateOfBirthField = new JTextField();
@@ -70,6 +77,8 @@ public class PersonPanel extends JPanel implements PropertyChangeListener {
 		emailField.setName("EmailPropertyComponent");
 		genderField.setName("GenderPropertyComponent");
 		heightField.setName("HeightPropertyComponent");
+		newButton.setName("NewPersonButton");
+		deleteButton.setName("DeletePersonButton");
 		
 		nameField.setColumns(25);
 		emailField.setColumns(25);
@@ -84,7 +93,8 @@ public class PersonPanel extends JPanel implements PropertyChangeListener {
 		emailField.addKeyListener(new ValueChangeListener());
 		genderField.addItemListener(new ValueChangeListener());
 		heightField.addChangeListener(new ValueChangeListener());
-		testButton.addActionListener(new TestButtonListener());
+		newButton.addActionListener(new NewButtonListener());
+		deleteButton.addActionListener(new DeleteButtonListener());
 		
 		GridBagConstraints c;
     	setLayout(new GridBagLayout());
@@ -134,8 +144,14 @@ public class PersonPanel extends JPanel implements PropertyChangeListener {
     	
     	c.gridx = 0;
     	c.gridy = 5;
-    	c.gridwidth = 2;
-    	add(testButton, c);
+    	add(newButton, c);
+    	
+    	c.gridx = 1;
+    	c.gridy = 5;
+    	add(deleteButton, c);
+    	
+    	personPanelListeners = new Vector<PersonPanelListener>();
+    	setModel(null);
 	}
 	
 	public Person getModel() {
@@ -143,36 +159,115 @@ public class PersonPanel extends JPanel implements PropertyChangeListener {
 	}
 	
 	public void setModel(Person model) {
+		if (this.model != null) {
+			this.model.removePropertyChangeListener(this);
+		}
+		else if (model != null) {
+			enableFields();
+		}
 		this.model = model;
 		updateFields();
-		model.addPropertyChangeListener(this);
+		if (this.model != null) {
+			this.model.addPropertyChangeListener(this);
+		}
+		else {
+			disableFields();
+		}
+	}
+	
+	protected void clearFields() {
+		nameField.setText(null);
+		emailField.setText(null);
+		dateOfBirthField.setText(null);
+		genderField.setSelectedItem(null);
+		heightField.setValue(heightField.getMinimum());
 	}
 	
 	protected void updateFields() {
-		nameField.setText(model.getName());
-		emailField.setText(model.getEmail());
-		dateOfBirthField.setText(model.getDateOfBirth());
-		genderField.setSelectedItem(model.getGender());
-		heightField.setValue(model.getHeight());
+		if (model != null) {
+			nameField.setText(model.getName());
+			emailField.setText(model.getEmail());
+			dateOfBirthField.setText(model.getDateOfBirth());
+			genderField.setSelectedItem(model.getGender());
+			heightField.setValue(model.getHeight());
+		}
+		else {
+			clearFields();
+		}
+	}
+	
+	public void addPersonPanelListener(PersonPanelListener listener) {
+		personPanelListeners.add(listener);
+	}
+	
+	public void removePersonPanelListener(PersonPanelListener listener) {
+		personPanelListeners.remove(listener);
 	}
 	
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (evt.getPropertyName() == Person.NAME_PROPERTY) {
-			nameField.setText(model.getName());
+			updateKeepCaretPosition(nameField, model.getName());
+			notifyListChanged();
 		}
 		else if (evt.getPropertyName() == Person.EMAIL_PROPERTY) {
-			emailField.setText(model.getEmail());
+			updateKeepCaretPosition(emailField, model.getEmail());
+			notifyListChanged();
 		}
 		else if (evt.getPropertyName() == Person.BIRTHDAY_PROPERTY) {
-			dateOfBirthField.setText(model.getDateOfBirth());
+			updateKeepCaretPosition(dateOfBirthField, model.getDateOfBirth());
 		}
 		else if (evt.getPropertyName() == Person.GENDER_PROPERTY) {
 			genderField.setSelectedItem(model.getGender());
+			notifyListChanged();
 		}
 		else if (evt.getPropertyName() == Person.HEIGHT_PROPERTY) {
 			heightField.setValue(model.getHeight());
 		}
-		
+	}
+
+	private void notifyNewPerson() {
+		Iterator<PersonPanelListener> listenerIterator = personPanelListeners.iterator();
+		while (listenerIterator.hasNext()) {
+			listenerIterator.next().newPersonAction();
+		}
+	}
+	
+	private void notifyDeletePerson() {
+		Iterator<PersonPanelListener> listenerIterator = personPanelListeners.iterator();
+		while (listenerIterator.hasNext()) {
+			listenerIterator.next().deletePersonAction(model);
+		}
+	}
+	
+	private void notifyListChanged() {
+		Iterator<PersonPanelListener> listenerIterator = personPanelListeners.iterator();
+		while (listenerIterator.hasNext()) {
+			listenerIterator.next().listNameChanged();
+		}
+	}
+	
+	private void disableFields() {
+		nameField.setEditable(false);
+		emailField.setEditable(false);
+		dateOfBirthField.setEditable(false);
+		genderField.setEnabled(false);
+		heightField.setEnabled(false);
+		updateUI();
+	}
+	
+	private void enableFields() {
+		nameField.setEditable(true);
+		emailField.setEditable(true);
+		dateOfBirthField.setEditable(true);
+		genderField.setEnabled(true);
+		heightField.setEnabled(true);
+		updateUI();
+	}
+	
+	private void updateKeepCaretPosition(JTextField field, String value) {
+		int p = field.getCaretPosition();
+		field.setText(value);
+		field.setCaretPosition(p);
 	}
 	
 	class ValueChangeListener implements KeyListener, ItemListener, ChangeListener {
@@ -215,11 +310,18 @@ public class PersonPanel extends JPanel implements PropertyChangeListener {
 	}
 	
 	
-	class TestButtonListener implements ActionListener {
+	class NewButtonListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("TEST!");
-			System.out.println(model.toString());
+			notifyNewPerson();
 		}
 	}
+	
+	class DeleteButtonListener implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			notifyDeletePerson();
+		}
+	}
+	
 }

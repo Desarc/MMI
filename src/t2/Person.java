@@ -24,38 +24,56 @@ public class Person {
 	}
 	
 	public Person(String name) {
+		this();
 		this.name = name;
-		pcs = new PropertyChangeSupport(this);
 	}
 	
-	public void setName(String name) {
-		String oldValue = this.name;
-		this.name = name;
-		pcs.firePropertyChange(NAME_PROPERTY, oldValue, name);
-	}
-	
-	public void setDateOfBirth(String dateOfBirth) {
-		String oldValue = this.dateOfBirth;
-		this.dateOfBirth = dateOfBirth;
-		pcs.firePropertyChange(BIRTHDAY_PROPERTY, oldValue, dateOfBirth);
-	}
-	
-	public void setGender(Gender gender) {
-		Gender oldValue = this.gender;
-		this.gender = gender;
-		pcs.firePropertyChange(GENDER_PROPERTY, oldValue, gender);
-	}
-	
-	public void setEmail(String email) {
-		String oldValue = this.email;
+	public Person(String name, String email, String dateOfBirth, Gender gender, int height) {
+		this(name);
 		this.email = email;
-		pcs.firePropertyChange(EMAIL_PROPERTY, oldValue, email);
+		this.dateOfBirth = dateOfBirth;
+		this.gender = gender;
+		this.height = height;
 	}
 	
-	public void setHeight(int height) {
+	public void setName(String newValue) {
+		String oldValue = this.name;
+		this.name = newValue;
+		if (newValue != oldValue) {
+			pcs.firePropertyChange(NAME_PROPERTY, oldValue, newValue);
+		}
+	}
+	
+	public void setDateOfBirth(String newValue) {
+		String oldValue = this.dateOfBirth;
+		this.dateOfBirth = newValue;
+		if (newValue != oldValue) {
+			pcs.firePropertyChange(BIRTHDAY_PROPERTY, oldValue, newValue);
+		}
+	}
+	
+	public void setGender(Gender newValue) {
+		Gender oldValue = this.gender;
+		this.gender = newValue;
+		if (newValue != oldValue) {
+			pcs.firePropertyChange(GENDER_PROPERTY, oldValue, newValue);
+		}
+	}
+	
+	public void setEmail(String newValue) {
+		String oldValue = this.email;
+		this.email = newValue;
+		if (newValue != oldValue) {
+			pcs.firePropertyChange(EMAIL_PROPERTY, oldValue, newValue);
+		}
+	}
+	
+	public void setHeight(int newValue) {
 		int oldValue = this.height;
-		this.height = height;
-		pcs.firePropertyChange(HEIGHT_PROPERTY, oldValue, height);
+		this.height = newValue;
+		if (newValue != oldValue) {
+			pcs.firePropertyChange(HEIGHT_PROPERTY, oldValue, newValue);
+		}
 	}
 
 	public int getHeight() {
@@ -87,7 +105,7 @@ public class Person {
 	}
 	
 	public String toString() {
-		return name+"\n"+email+"\n"+dateOfBirth+"\n"+gender+"\n"+height;
+		return name;
 				
 	}
 

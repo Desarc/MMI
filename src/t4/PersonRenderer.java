@@ -49,11 +49,9 @@ public class PersonRenderer extends JLabel implements ListCellRenderer {
 			setIcon(new ImageIcon("/home/desarc/projects/MMI/resources/venus.png"));
 		}
 		if (isSelected) {
-			setBackground(HIGHLIGHT_COLOR);
-			setForeground(Color.white);
+			setForeground(HIGHLIGHT_COLOR);
 		    } 
 		else {
-			setBackground(Color.white);
 			setForeground(Color.black);
 		    }
 		return this;

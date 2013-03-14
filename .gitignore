@@ -14,3 +14,12 @@
 *.out
 *.synctex.gz
 *.toc
+*.pdf
+
+# Eclipse stuff
+*.project
+*.texlipse
+
+# OSX stuff
+*.DS_Store
+

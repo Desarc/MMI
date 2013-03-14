@@ -19,3 +19,7 @@
 # Eclipse stuff
 *.project
 *.texlipse
+
+# OSX stuff
+*.DS_Store
+

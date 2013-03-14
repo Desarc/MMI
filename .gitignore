@@ -14,3 +14,6 @@
 *.out
 *.synctex.gz
 *.toc
+
+# Eclipse stuff
+*.project

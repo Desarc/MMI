@@ -3,7 +3,7 @@ Vi har valgt å bruke digitale mockups i stedet for papirprototyper. For å lage
 
 \subsection{Deler av brukergrensesnittet}
 \subsubsection{Loginvindu}
-Loginvinduet er det første som brukeren møter når han starter kalenderapplikasjonen. Vinduet består av to tekstfelter for brukernavn og passord. Så to knapper for å logge inn samt glemt passord. Vi har valgt å ikke gå inn på grensesnittet for \emph{glemt passord}. Dersom brukernavn og passordet stemmer på serveren etter at brukeren har trykket på \emph{Login} så vil vinduet lukkes mens hovedvinduet åpnes. Hvis det ikke stemmer så vil brukeren få beskjed om hva som var galt.
+Loginvinduet er det første som brukeren møter når han starter kalenderapplikasjonen. Vinduet består av to tekstfelter for brukernavn og passord. Så to knapper for å logge inn samt glemt passord. Vi har valgt å ikke gå inn på grensesnittet for \emph{Glemt Passord}. Dersom brukernavn og passordet stemmer på serveren etter at brukeren har trykket på \emph{Login} så vil vinduet lukkes mens hovedvinduet åpnes. Hvis det ikke stemmer så vil brukeren få beskjed om hva som var galt.
 
 \begin{figure}[H]
 \centering
@@ -13,7 +13,7 @@ Loginvinduet er det første som brukeren møter når han starter kalenderapplika
 \end{figure}
 
 \subsubsection{Hovedvindu}
-Hovedvinduet har oversikten over avtalene i en uke-visning og en liste over notifikasjonene som berører brukeren (avtaler som har blitt endret eller kansellert). Forskjellige visninger som arbeidsdager, enkle dager, månedvisningen samt klokkeslett på venstresiden er ikke tatt med her. Det er tre forskjellige knapper, \emph{ny avtale}, \emph{flere kalendere} og \emph{logg ut}. \emph{Ny avtale} og \emph{flere kalendere} bringer opp nye vindu, mens \emph{logg ut} logger ut brukeren, lukker vinduet og bringer tilbake loginvinduet.
+Hovedvinduet har oversikten over avtalene i en uke-visning og en liste over notifikasjonene som berører brukeren (avtaler som har blitt endret eller kansellert). Forskjellige visninger som arbeidsdager, enkle dager, månedvisningen samt klokkeslett på venstresiden er ikke tatt med her. Ved å trykke på en av avtalene i visningen så vil avtaleviseren komme opp som viser mer informasjon og gjør det mulig å redigere egne avtaler. Det er tre forskjellige knapper, \emph{Ny Avtale}, \emph{Flere Kalendere} og \emph{Logg Ut}. \emph{Ny Avtale} og \emph{Flere Kalendere} bringer opp nye vindu (\emph{Avtaleviseren} og \emph{Flere Kalendere}), mens \emph{Logg Ut} logger ut brukeren, lukker vinduet og bringer tilbake \emph{Loginvinduet}.
 
 \begin{figure}[H]
 \centering
@@ -23,7 +23,7 @@ Hovedvinduet har oversikten over avtalene i en uke-visning og en liste over noti
 \end{figure}
 
 \subsubsection{Avtaleviser}
-hello
+Avtaleviseren er vinduet som kommer opp når en trykker \emph{Ny Avtale} eller velger en egen avtale i visningen i \emph{Hovedvinduet}. Avtalen inneholder en \emph{beskrivelse}, \emph{dato}, \emph{til og fra} klokkeslett, \emph{lokasjon} og \emph{gjester}. Beskrivelsen er et vanlig tekstfelt. Dato har en drop-down minikalender som gjør det lettere å velge datoer. Til og fra er klokkeslettfelt. Lokasjonsfeltet er et tekstfelt som enten kan fylles ut selv, eller så kan man bruke romreservasjon for å booke et møterom. Gjester kan legges til i gjestelisten ved å skrive i søkefeltet og manuelt legge til epost-adresser eller bare la den autofullføre navn ved å søke i brukeren til kalenderen. De to hovedknappene er \emph{Slett Avtale} og \emph{Lagre Avtale} som skal spørre om å bekrefte endringene før vinduet lukkes.
 
 \begin{figure}[H]
 \centering
@@ -33,7 +33,7 @@ hello
 \end{figure}
 
 \subsubsection{Romreservasjon}
-hello
+Romreservasjonvinduet kommer opp når man trykker på \emph{Rom} i \emph{Avtaleviseren}. Den henter automatisk inn hvilken dato og klokkeslett man hadde i avtalen og lister opp hvilke rom med kapasiteten som er ledig til det tidspunktet. I tillegg er det mulig å velge et møterom og få opp en visning som i \emph{Hovedvinduet} som viser når rommet er opptatt slik at man kan velge et annet tidspunkt for møtet. Når man finner et ledig tidspunkt vil rommet komme opp i listen. Da må brukeren velge rommet og trykke på \emph{Reserver}-knappen. Vinduet vil da lukkes og gå tilbake til \emph{Avtaleviseren} hvor nå romfeltet er utfylt.
 
 \begin{figure}[H]
 \centering

@@ -1,11 +1,9 @@
 \subsection{Innledning}
-Innledning
+Vi har valgt å bruke digitale mockups i stedet for papirprototyper. For å lage mockupsene brukte vi nettapplikasjonen \emph{Moqups} \cite{moqups}. For å knytte sammen mockupsene til en interaktiv prototype brukte vi \emph{InVision} \cite{invision}. Den finnes forøvrig her \cite{invisio}. 
 
 \subsection{Deler av brukergrensesnittet}
-Delene av brukergrensesnittet
-
 \subsubsection{Loginvindu}
-Loginvindu
+Loginvinduet er det første som brukeren møter når han starter kalenderapplikasjonen. Vinduet består av to tekstfelter for brukernavn og passord. Så to knapper for å logge inn samt glemt passord. Vi har valgt å ikke gå inn på grensesnittet for \emph{glemt passord}. Dersom brukernavn og passordet stemmer på serveren etter at brukeren har trykket på \emph{Login} så vil vinduet lukkes mens hovedvinduet åpnes. Hvis det ikke stemmer så vil brukeren få beskjed om hva som var galt.
 
 \begin{figure}[H]
 \centering
@@ -14,9 +12,8 @@ Loginvindu
 \label{login_image}
 \end{figure}
 
-
 \subsubsection{Hovedvindu}
-hello
+Hovedvinduet har oversikten over avtalene i en uke-visning og en liste over notifikasjonene som berører brukeren (avtaler som har blitt endret eller kansellert). Forskjellige visninger som arbeidsdager, enkle dager, månedvisningen samt klokkeslett på venstresiden er ikke tatt med her. Det er tre forskjellige knapper, \emph{ny avtale}, \emph{flere kalendere} og \emph{logg ut}. \emph{Ny avtale} og \emph{flere kalendere} bringer opp nye vindu, mens \emph{logg ut} logger ut brukeren, lukker vinduet og bringer tilbake loginvinduet.
 
 \begin{figure}[H]
 \centering
@@ -75,3 +72,10 @@ hello
 
 \subsection{Tilstandsdiagram}
 Tilstandsdiagram
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.165]{images/tilstandsdiagram.jpg}
+\caption{Tilstandsdiagram}
+\label{tilstandsdiagram_image}
+\end{figure}
